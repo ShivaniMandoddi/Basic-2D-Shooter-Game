@@ -14,7 +14,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     public void Start()
     {
-        for (int i=0;i<20;i++)
+        for (int i=0;i<20;i++) // Creating 20 bullets pool
         {
             bulletStack.Push(Instantiate(bulletPrefab));
             bulletPrefab.SetActive(false);
@@ -35,13 +35,13 @@ public class SpawnManager : MonoBehaviour
             time = 0.0f;
         }
     }
-    public void CreateBullet()
+    public void CreateBullet()       // Creating a bullet, by poping out from the bulletSatck
     {
         GameObject bullet=bulletStack.Pop();
         bullet.SetActive(true);
         bullet.transform.position = transform.position + offset;
     }
-    public void BackToPool(GameObject obj)
+    public void BackToPool(GameObject obj) // Here, the bullet gets again into the pool.
     {
         obj.SetActive(false);
         bulletStack.Push(obj);

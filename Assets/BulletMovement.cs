@@ -17,7 +17,7 @@ public class BulletMovement : MonoBehaviour
     void Update()
     {
         transform.Translate(0, bulletSpeed, 0);
-        if(transform.position.y>13.5)
+        if(transform.position.y>13.5f) //Pushing a bullet into bulletStack,when it is out of screen.
             spawnManager.BackToPool(gameObject);
 
     }

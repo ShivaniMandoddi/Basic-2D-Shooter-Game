@@ -9,14 +9,23 @@ public class SpawnManager : MonoBehaviour
     public GameObject enemyPrefab;
     public Vector3 offset;
     public float time;
-   
+    Stack<GameObject> bulletStack = new Stack<GameObject>();
 
     // Update is called once per frame
-   
+    public void Start()
+    {
+        for (int i=0;i<20;i++)
+        {
+            bulletStack.Push(Instantiate(bulletPrefab));
+            bulletPrefab.SetActive(false);
+        }
+    }
+
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            Instantiate(bulletPrefab,transform.position+offset,Quaternion.identity);
+            CreateBullet();
+            //Instantiate(bulletPrefab,transform.position+offset,Quaternion.identity);
         time = time + Time.deltaTime ;
         if (time >= 3.0f)
         {
@@ -26,6 +35,17 @@ public class SpawnManager : MonoBehaviour
             time = 0.0f;
         }
     }
-    
+    public void CreateBullet()
+    {
+        GameObject bullet=bulletStack.Pop();
+        bullet.SetActive(true);
+        bullet.transform.position = transform.position + offset;
+    }
+    public void BackToPool(GameObject obj)
+    {
+        obj.SetActive(false);
+        bulletStack.Push(obj);
+       
+    }
 
 }
